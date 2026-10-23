@@ -1,0 +1,24 @@
+# Allowlist of names that MAY exist in public DNS.
+# Everything else should not have A/AAAA/CNAME/MX/TXT/SRV records
+# on the public zone. Internal apps go through Cloudflare Tunnel + WARP
+# (no public DNS name) instead of a secret.example.com record.
+
+domain: example.com
+
+public:
+  # Apex website
+  - "@"
+  - www
+  # Public mail, if you actually receive mail on this domain
+  - mx
+  # ACME / provider-managed names you intentionally keep
+  # - "_acme-challenge"
+
+# Record types that are never deleted even if the name is not listed.
+# NS and SOA are zone infrastructure.
+keep_types:
+  - NS
+  - SOA
+
+# Optional: also keep these exact FQDNs (provider artifacts).
+keep_names: []

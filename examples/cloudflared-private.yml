@@ -1,0 +1,17 @@
+# Private app: NO public DNS hostname.
+# Users reach 10.0.0.20:443 (or an internal name via Gateway resolver)
+# only from devices running the Cloudflare One / WARP client.
+#
+# Docs:
+# https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/private-net/
+# https://developers.cloudflare.com/cloudflare-one/access-controls/applications/non-http/self-hosted-private-app/
+
+tunnel: "<TUNNEL_UUID>"
+warp-routing:
+  connectTimeout: 5s
+
+# Do not add `hostname:` ingress rules for names you want hidden.
+# Public hostname ingress creates a DNS record and usually a CT-logged cert.
+
+ingress:
+  - service: http_status:404
